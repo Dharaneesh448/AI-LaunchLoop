@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>AI in 60 – Growth Engine</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--tx:#14161f;--mu:#667;--ac:#5b3df5;--ac2:#00b894;--bd:#e3e5ee;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1117;--card:#181b25;--tx:#eef;--mu:#9aa;--bd:#2a2e3c}}
+:root[data-theme="dark"]{--bg:#0f1117;--card:#181b25;--tx:#eef;--mu:#9aa;--bd:#2a2e3c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+header{padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+h1{font-size:17px;margin:0}nav{display:flex;gap:6px;overflow-x:auto;padding:0 16px 10px}
+nav button{white-space:nowrap;border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:8px 14px;border-radius:99px;cursor:pointer;font-size:14px}
+nav button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+main{max-width:860px;margin:auto;padding:0 16px 40px}.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:18px;margin-bottom:14px}
+.hero{background:linear-gradient(135deg,#5b3df5,#8e5cff);color:#fff;border:0}.hero h2{margin:0 0 6px;font-size:26px}
+input,select,textarea{width:100%;padding:11px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit;margin:4px 0 10px}
+.btn{background:var(--ac2);color:#fff;border:0;padding:12px 18px;border-radius:10px;font-weight:600;cursor:pointer;font-size:15px}.btn.alt{background:var(--ac)}
+.bar{height:12px;background:var(--bd);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ac2);transition:width .6s}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}.stat{text-align:center}.stat b{font-size:24px;display:block}
+.mu{color:var(--mu);font-size:13px}table{width:100%;border-collapse:collapse}td,th{padding:8px 6px;border-bottom:1px solid var(--bd);text-align:left}
+.cd{display:flex;gap:10px;margin:10px 0}.cd div{background:rgba(255,255,255,.18);padding:8px 12px;border-radius:10px;text-align:center;min-width:56px}.cd b{font-size:20px;display:block}
+.tag{display:inline-block;padding:2px 9px;border-radius:99px;background:var(--ac);color:#fff;font-size:12px}.hide{display:none}
+.chk label{display:block;margin:4px 0}.chk input{width:auto;margin-right:8px}
+</style></head><body>
+<header><h1>Build Your First AI Project in 60 Minutes <span class="tag">Growth Engine demo</span></h1><button class="btn alt" onclick="toggleTheme()">◐</button></header>
+<nav id="nav"></nav>
+<main>
+<section id="t0">
+<div class="card hero"><h2>Build Your First AI Project in 60 Minutes</h2>
+<div>Free live workshop for final-year engineering students · Sat 11 Oct 2026 · 7 PM IST</div>
+<div class="cd" id="cd"></div>
+<div class="mu" style="color:#e8e4ff">No coding experience with AI needed. Leave with a working project + certificate for your resume.</div></div>
+<div class="card"><div style="display:flex;justify-content:space-between"><b>Seats claimed</b><span id="cnt"></span></div><div class="bar"><i id="pb"></i></div><div class="mu" id="left"></div></div>
+<div class="card" id="formCard"><h3 style="margin-top:0">Reserve your free seat</h3>
+<label>Full name</label><input id="n" placeholder="Priya Sharma">
+<label>College</label><input id="c" placeholder="e.g. Kongu Engineering College">
+<label>Branch</label><select id="b"><option>CSE / IT</option><option>ECE / EEE</option><option>Mechanical / Civil</option><option>Other</option></select>
+<label>WhatsApp number</label><input id="p" inputmode="numeric" placeholder="10-digit number">
+<div class="mu" id="refnote"></div><button class="btn" onclick="register()">Register free →</button><div id="err" style="color:#e55;margin-top:8px"></div></div>
+<div class="card hide" id="done"></div>
+<div class="card"><b>What you will build</b><div class="grid" style="margin-top:10px"><div>⚡ A working AI app (chatbot / resume analyser)</div><div>🛠 Using free AI tools, zero setup</div><div>🏆 Best projects get featured + certificates</div></div></div>
+</section>
+
+<section id="t1" class="hide">
+<div class="card"><h3 style="margin-top:0">Referral tracker</h3><div class="grid" id="mine"></div><p class="mu">Every friend who registers through your link counts. Top 3 ambassadors win rewards.</p>
+<div id="tiers"></div></div>
+<div class="card"><h3 style="margin-top:0">Leaderboard (live)</h3><table id="lb"></table></div>
+<div class="card"><h3 style="margin-top:0">College race</h3><table id="cl"></table></div>
+</section>
+
+<section id="t2" class="hide">
+<div class="card"><h3 style="margin-top:0">500-registration simulator</h3><p class="mu">Adjust assumptions. Tune reach and conversion to see if the plan still hits 500 within ₹2,000.</p><div id="sim"></div></div>
+<div class="card"><div class="grid"><div class="stat"><b id="tot"></b>registrations</div><div class="stat"><b id="cost"></b>budget used</div><div class="stat"><b id="cpr"></b>cost / signup</div></div><div class="bar" style="margin-top:12px"><i id="sb"></i></div><div class="mu" id="verdict" style="margin-top:6px"></div></div>
+</section>
+
+<section id="t3" class="hide">
+<div class="card"><h3 style="margin-top:0">AI Project Evaluator (used live in the workshop)</h3><p class="mu">Students paste their project description. It is scored on a rubric so every participant gets instant feedback and a certificate tier.</p>
+<label>Project title</label><input id="et" placeholder="Resume Roaster AI">
+<label>Describe it (problem, who uses it, how AI is used, what you built)</label><textarea id="ed" rows="5"></textarea>
+<div class="chk"><label><input type="checkbox" id="k1">I have a working demo link</label><label><input type="checkbox" id="k2">I tested it with at least 1 real person</label></div>
+<button class="btn alt" onclick="evalP()">Score my project</button></div>
+<div class="card hide" id="ev"></div>
+<div class="card"><h3 style="margin-top:0">Live poll</h3><div class="mu">Which AI tool did you use today?</div><div id="poll"></div></div>
+</section>
+</main>
+<script>
+const $=s=>document.querySelector(s),LS={g(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const TARGET=500,SEED=212;
+const seedAmb=[["Karthik R","Kongu Engg",34],["Divya M","PSG Tech",28],["Arun S","Anna Univ",23],["Sneha P","SASTRA",19],["Vikram T","NIT Trichy",15]];
+let tabs=["Register","Referrals","Campaign Plan","AI Evaluator"];
+$("#nav").innerHTML=tabs.map((t,i)=>`<button onclick="show(${i})" id="nb${i}">${t}</button>`).join("");
+function show(i){for(let j=0;j<4;j++){$("#t"+j).classList.toggle("hide",i!=j);$("#nb"+j).classList.toggle("on",i==j)}if(i==1)lb();if(i==2)sim()}
+function toggleTheme(){const r=document.documentElement;r.dataset.theme=(r.dataset.theme==="dark")?"light":"dark"}
+// countdown
+const T0=new Date("2026-10-11T19:00:00+05:30");
+setInterval(()=>{let d=Math.max(0,T0-Date.now()),x=[["Days",864e5],["Hrs",36e5],["Min",6e4],["Sec",1e3]];$("#cd").innerHTML=x.map(([l,m])=>{let v=Math.floor(d/m);d-=v*m;return`<div><b>${v}</b>${l}</div>`}).join("")},1000);
+// data
+const regs=()=>LS.g("regs",[]),me=()=>LS.g("me",null);
+const ref=new URLSearchParams(location.search).get("ref");
+if(ref)$("#refnote").textContent="🎉 You were invited by ambassador code "+ref.toUpperCase();
+function counts(){const r=regs();$("#cnt").textContent=(SEED+r.length)+" / "+TARGET;$("#pb").style.width=Math.min(100,(SEED+r.length)/TARGET*100)+"%";$("#left").textContent=Math.max(0,TARGET-SEED-r.length)+" seats left"}
+function register(){const n=$("#n").value.trim(),c=$("#c").value.trim(),p=$("#p").value.trim();
+if(n.length<2||c.length<2)return $("#err").textContent="Please enter your name and college.";
+if(!/^[6-9]\d{9}$/.test(p))return $("#err").textContent="Enter a valid 10-digit Indian mobile number.";
+const r=regs();if(r.some(x=>x.p===p))return $("#err").textContent="This number is already registered.";
+const code=(n.replace(/[^a-z]/gi,"").slice(0,4)+Math.floor(100+Math.random()*900)).toUpperCase();
+const o={n,c,b:$("#b").value,p,code,ref:ref?ref.toUpperCase():null,t:Date.now()};r.push(o);LS.s("regs",r);LS.s("me",o);$("#err").textContent="";
+const link=location.origin+location.pathname+"?ref="+code;
+const msg=encodeURIComponent("I just registered for a FREE workshop: Build Your First AI Project in 60 Minutes 🚀 Join me (limited seats): "+link);
+$("#formCard").classList.add("hide");const d=$("#done");d.classList.remove("hide");
+d.innerHTML=`<h3 style="margin-top:0">✅ You're in, ${esc(n)}!</h3><p>Your ambassador code: <b>${code}</b>. Invite 5 friends to unlock the Top-Referrer rewards.</p><input readonly value="${esc(link)}" onclick="this.select()"><a class="btn" style="display:inline-block;text-decoration:none" href="https://wa.me/?text=${msg}" target="_blank" rel="noopener">Share on WhatsApp</a> <button class="btn alt" onclick="navigator.clipboard&&navigator.clipboard.writeText('${link}');this.textContent='Copied!'">Copy link</button>`;counts()}
+function board(){const r=regs(),m={};seedAmb.forEach(a=>m[a[0]]={n:a[0],c:a[1],k:a[2]});
+r.forEach(x=>{if(x.ref){const o=r.find(y=>y.code===x.ref);if(o){const key=o.n;m[key]=m[key]||{n:o.n,c:o.c,k:0};m[key].k++}}});
+return Object.values(m).sort((a,b)=>b.k-a.k)}
+function lb(){const L=board(),u=me(),r=regs(),mk=u?r.filter(x=>x.ref===u.code).length:0;
+$("#mine").innerHTML=u?`<div class="stat"><b>${u.code}</b>your code</div><div class="stat"><b>${mk}</b>friends joined</div><div class="stat"><b>${Math.max(0,5-mk)}</b>to unlock reward</div>`:`<div class="mu">Register first on the Register tab to get your code.</div>`;
+$("#tiers").innerHTML=`<div class="mu">🥇 Rank 1: ₹500 · 🥈 Rank 2: ₹300 · 🥉 Rank 3: ₹200 · 5+ referrals: priority project review</div>`;
+$("#lb").innerHTML="<tr><th>#</th><th>Name</th><th>College</th><th>Referrals</th></tr>"+L.map((x,i)=>`<tr><td>${i+1}</td><td>${esc(x.n)}</td><td>${esc(x.c)}</td><td><b>${x.k}</b></td></tr>`).join("");
+const cm={};L.forEach(x=>cm[x.c]=(cm[x.c]||0)+x.k);
+$("#cl").innerHTML="<tr><th>College</th><th>Referrals</th></tr>"+Object.entries(cm).sort((a,b)=>b[1]-a[1]).map(e=>`<tr><td>${esc(e[0])}</td><td>${e[1]}</td></tr>`).join("")}
+// simulator
+const CH=[["WhatsApp groups",6000,3.5,0],["College clubs / ambassadors",3000,5,1200],["Email + LinkedIn",2000,3,300],["Instagram boost",20000,0.5,500]];
+const S=LS.g("sim",{r:CH.map(c=>c[1]),c:CH.map(c=>c[2]),k:25,o:300});
+function sim(){let h="";CH.forEach((c,i)=>{h+=`<b>${c[0]}</b> <span class="mu">cost ₹${c[3]}</span><div class="mu">Reach <span id="rv${i}">${S.r[i]}</span></div><input type="range" min="0" max="30000" step="500" value="${S.r[i]}" oninput="S.r[${i}]=+this.value;calc()"><div class="mu">Conversion % <span id="cv${i}">${S.c[i]}</span></div><input type="range" min="0.1" max="10" step="0.1" value="${S.c[i]}" oninput="S.c[${i}]=+this.value;calc()">`});
+h+=`<b>Referral loop</b><div class="mu">Extra signups per 100 direct <span id="kv">${S.k}</span></div><input type="range" min="0" max="60" value="${S.k}" oninput="S.k=+this.value;calc()">`;$("#sim").innerHTML=h;calc()}
+function calc(){let d=0,cost=0;CH.forEach((c,i)=>{d+=S.r[i]*S.c[i]/100;cost+=c[3];$("#rv"+i).textContent=S.r[i];$("#cv"+i).textContent=S.c[i]});$("#kv").textContent=S.k;
+const t=Math.round(d*(1+S.k/100));LS.s("sim",S);$("#tot").textContent=t;$("#cost").textContent="₹"+cost;$("#cpr").textContent="₹"+(t?(cost/t).toFixed(1):"–");
+$("#sb").style.width=Math.min(100,t/TARGET*100)+"%";$("#verdict").textContent=(t>=TARGET?"✅ Target hit":"⚠ Short by "+(TARGET-t))+(cost<=2000?" · within ₹2,000":" · over budget by ₹"+(cost-2000))}
+// evaluator
+function evalP(){const t=$("#et").value.trim(),d=$("#ed").value.trim().toLowerCase();if(d.length<30)return alert("Write at least a couple of sentences.");
+const has=a=>a.some(w=>d.includes(w)),w=d.split(/\s+/).length;
+const sc={"Problem clarity":(has(["problem","struggle","pain","hard to","need"])?10:4)+(has(["students","users","people","teachers","farmers","hr"])?10:3),
+"AI usage":(has(["gpt","claude","gemini","llm","model","prompt","api","ai"])?12:3)+(has(["prompt","dataset","fine","rag","agent"])?8:2),
+"Execution":(w>60?8:w>30?5:2)+($("#k1").checked?12:0),
+"Validation":($("#k2").checked?14:2)+(has(["feedback","tested","users said","%"])?6:0),
+"Originality":(has(["unique","first","new way","unlike","instead of"])?12:6)+(has(["local","tamil","regional","college"])?8:3)};
+let tot=0,rows="";for(const k in sc){const v=Math.min(20,sc[k]);tot+=v;rows+=`<tr><td>${k}</td><td><div class="bar"><i style="width:${v*5}%"></i></div></td><td>${v}/20</td></tr>`}
+const tier=tot>=80?"🏆 Gold Builder":tot>=60?"🥈 Silver Builder":tot>=40?"🥉 Bronze Builder":"🌱 Keep Building";
+const tips=[];if(!$("#k1").checked)tips.push("Deploy a demo link (Lovable / Vercel).");if(!$("#k2").checked)tips.push("Show it to one friend and note their reaction.");if(!has(["problem","need","struggle"]))tips.push("State the exact problem first.");if(w<60)tips.push("Add more detail: who uses it and what AI does.");
+const e=$("#ev");e.classList.remove("hide");e.innerHTML=`<h3 style="margin-top:0">${esc(t||"Your project")}: ${tot}/100 · ${tier}</h3><table>${rows}</table><p><b>Next steps:</b> ${tips.length?tips.map(esc).join(" "):"Great work! Submit to the showcase."}</p>`}
+function poll(){const o=["ChatGPT","Claude","Gemini","Other"],v=LS.g("poll",[18,14,9,3]);$("#poll").innerHTML=o.map((x,i)=>`<div style="margin:6px 0"><button class="btn alt" style="padding:6px 12px" onclick="vote(${i})">${x}</button> <b>${v[i]}</b><div class="bar" style="margin-top:4px"><i style="width:${v[i]/Math.max(...v)*100}%"></i></div></div>`).join("")}
+function vote(i){const v=LS.g("poll",[18,14,9,3]);v[i]++;LS.s("poll",v);poll()}
+counts();poll();show(0);
+</script></body></html>
